@@ -7,7 +7,10 @@ export class HomeController {
     @GET("/")
     @GET("index")
     async index(ctx: Context): Promise<void> {
-        ctx.body = "hello";
+        ctx.body = {
+            query: ctx.query,
+            message: "hello"
+        };
     }
 
     @POST("add")
