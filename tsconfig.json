@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": false,
+        "rootDir": ".",
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "removeComments": true,
+        "experimentalDecorators": true,
+        "declaration": false,
+        "inlineSourceMap": false
+    },
+    "exclude": [
+        "node_modules",
+        "typings/browser.d.ts",
+        "typings/browser",
+        "*.json"
+    ]
+}

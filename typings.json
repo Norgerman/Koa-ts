@@ -1,0 +1,12 @@
+{
+  "name": "koa-ts",
+  "version": false,
+  "dependencies": {
+    "source-map-support": "registry:npm/source-map-support#0.3.0+20160413183746"
+  },
+  "ambientDependencies": {
+    "koa-bodyparser": "registry:dt/koa-bodyparser#3.0.0+20160414124440",
+    "koa-router": "registry:dt/koa-router#7.0.0+20160314083221",
+    "node": "registry:dt/node#6.0.0+20160514165920"
+  }
+}
