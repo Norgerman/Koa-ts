@@ -2,6 +2,12 @@
 import * as Router from "koa-router";
 import {controllers} from "../Controllers";
 
+interface RouteInfo {
+    path: string,
+    method: string,
+    name: string
+}
+
 export class RouterBuilder {
 
     private _router: Router;
@@ -17,7 +23,7 @@ export class RouterBuilder {
     private buildRouter() {
         if (!this._built) {
             for (let e of controllers) {
-                let obj = Reflect.construct(e, []);
+                let obj: { routers: RouteInfo[] } = Reflect.construct(e, []);
                 let routePrefix = Reflect.get(e, "routePrefix")
                 let prefix: string = routePrefix ? routePrefix : "/";
 
