@@ -1,14 +1,21 @@
 {
-    "name": "koa-ts",
-    "version": "1.0.0",
-    "description": "just for fun",
-    "main": "app.js",
-    "author": "Norgerman",
-    "license": "MIT",
-    "dependencies": {
-        "koa": "^2.0.0",
-        "koa-bodyparser": "^3.1.0",
-        "koa-router": "^7.0.1",
-        "source-map-support": "^0.4.0"
-    }
+  "name": "koa-ts",
+  "version": "1.0.0",
+  "description": "just for fun",
+  "main": "app.js",
+  "author": "Norgerman",
+  "license": "MIT",
+  "dependencies": {
+    "koa": "^2.0.0-alpha.7",
+    "koa-bodyparser": "^3.2.0",
+    "koa-router": "^7.0.1",
+    "source-map-support": "^0.4.8"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.0.37",
+    "@types/koa-bodyparser": "^3.0.22",
+    "@types/koa-router": "^7.0.21",
+    "@types/node": "^6.0.55",
+    "@types/source-map-support": "^0.2.28"
+  }
 }
