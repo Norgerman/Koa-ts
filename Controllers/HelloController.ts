@@ -38,4 +38,18 @@ export class HelloController {
     async allWorld(ctx: Context): Promise<void> {
         ctx.body = "hello world all";
     }
+
+    @OPTIONS("test")
+    @GET("test")
+    @Route("HEAD", "test")
+    async test(ctx:Context):Promise<void> {
+        let methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"];
+        ctx.response.set("X-Url", "/hello/world");
+        ctx.response.set("X-Support-Method", methods.join(";"));
+        if (ctx.request.method == "GET") {
+            ctx.body = {url: "/hello/world", method: methods}
+        } else {
+            ctx.body = null;
+        }
+    }
 }
