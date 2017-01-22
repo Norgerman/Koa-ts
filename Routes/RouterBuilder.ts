@@ -23,7 +23,7 @@ export class RouterBuilder {
     private buildRouter() {
         if (!this._built) {
             for (let e of controllers) {
-                let obj: { routers: RouteInfo[] } = Reflect.construct(e, []);
+                let obj: { routers: RouteInfo[] } = <any>e.prototype;
                 let routePrefix = Reflect.get(e, "routePrefix")
                 let prefix: string = routePrefix ? routePrefix : "/";
 
@@ -37,17 +37,17 @@ export class RouterBuilder {
                     if (!path.startsWith("/")) {
                         path = prefix + path;
                     }
-
+                    var route:Router.IMiddleware = this.wapperAction(e, router.name);
                     switch (router.method) {
-                        case "GET": this._router.get(path, obj[router.name].bind(obj)); break;
-                        case "POST": this._router.post(path, obj[router.name].bind(obj)); break;
-                        case "PUT": this._router.put(path, obj[router.name].bind(obj)); break;
-                        case "DELETE": this._router.delete(path, obj[router.name].bind(obj)); break;
-                        case "OPTIONS": this._router.options(path, obj[router.name].bind(obj)); break;
-                        case "ALL": this._router.all(path, obj[router.name].bind(obj)); break;
+                        case "GET": this._router.get(path, route); break;
+                        case "POST": this._router.post(path, route); break;
+                        case "PUT": this._router.put(path, route); break;
+                        case "DELETE": this._router.delete(path, route); break;
+                        case "OPTIONS": this._router.options(path, route); break;
+                        case "ALL": this._router.all(path, route); break;
                         default: {
                             try {
-                                this._router[router.method.toLowerCase()](path, obj[router.name].bind(obj)); break;
+                                this._router[router.method.toLowerCase()](path, route); break;
                             } catch (error) {
                                 //eat the undefined error;
                             }
@@ -67,5 +67,12 @@ export class RouterBuilder {
 
     public allowedMethods() {
         return this._router.allowedMethods();
+    }
+
+    private wapperAction(controllerType:Function, name:string):Router.IMiddleware {
+        return (ctx, next) => {
+            var obj = Reflect.construct(controllerType, []);
+            return obj[name].call(obj, ctx, next);
+        }
     }
 }

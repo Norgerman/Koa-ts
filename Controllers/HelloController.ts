@@ -4,6 +4,10 @@ import {Context} from "koa";
 
 @RoutePrefix("/hello")
 export class HelloController {
+    constructor() {
+        console.log("create new instance hello");
+    }
+
     @GET("world")
     async getWorld(ctx: Context): Promise<void> {
         ctx.body = "hello world get";

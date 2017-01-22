@@ -4,6 +4,11 @@ import {Context} from "koa";
 
 @RoutePrefix("/home")
 export class HomeController {
+
+    constructor() {
+        console.log("create new instance home");
+    }
+
     @GET("/")
     @GET("index")
     async index(ctx: Context): Promise<void> {
