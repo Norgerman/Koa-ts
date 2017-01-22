@@ -37,7 +37,7 @@ export class RouterBuilder {
                     if (!path.startsWith("/")) {
                         path = prefix + path;
                     }
-                    var route:Router.IMiddleware = this.wapperAction(e, router.name);
+                    var route:Router.IMiddleware = this.wrapAction(e, router.name);
                     switch (router.method) {
                         case "GET": this._router.get(path, route); break;
                         case "POST": this._router.post(path, route); break;
@@ -69,7 +69,7 @@ export class RouterBuilder {
         return this._router.allowedMethods();
     }
 
-    private wapperAction(controllerType:Function, name:string):Router.IMiddleware {
+    private wrapAction(controllerType:Function, name:string):Router.IMiddleware {
         return (ctx, next) => {
             var obj = Reflect.construct(controllerType, []);
             return obj[name].call(obj, ctx, next);
