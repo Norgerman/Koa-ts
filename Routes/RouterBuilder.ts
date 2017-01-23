@@ -57,6 +57,7 @@ export class RouterBuilder {
 
                 this._controllerInstances.push(obj);
             }
+            this._built = true;
         }
     }
 
