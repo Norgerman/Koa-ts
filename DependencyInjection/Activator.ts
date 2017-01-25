@@ -12,14 +12,14 @@ class Activator {
     private services: Map<string, ServiceInfo>;
 
     add(service: ServiceInfo) {
+        if (service.lifeTime == "singleton" && !service.value) {
+            service.value = this.createInstance(service.constructor);
+        }
         this.services.set(service.name, service);
         return this;
     }
 
     addSingleton<T>(name: string, constructor: Function, value?: T) {
-        if (!value) {
-            value = this.createInstance(constructor);
-        }
         return this.add({ name: name, constructor: constructor, value: value, lifeTime: "singleton" });
     }
 
