@@ -1,7 +1,7 @@
 "use strict";
 import { GET, POST, PUT, DELETE, OPTIONS, ALL, route, routePrefix } from "../Routes/Decorator";
 import { Context } from "koa";
-import { injectParam, inject } from "../DependencyInjection/Decorator";
+import { injectParam, injectProperty } from "../DependencyInjection/Decorator";
 
 @routePrefix("/hello")
 export class HelloController {
