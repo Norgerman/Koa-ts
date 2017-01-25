@@ -1,6 +1,7 @@
 "use strict";
-import {GET, POST, PUT, DELETE, OPTIONS, ALL, route, routePrefix} from "../Routes/Decorator";
-import {Context} from "koa";
+import { GET, POST, PUT, DELETE, OPTIONS, ALL, route, routePrefix } from "../Routes/Decorator";
+import { Context } from "koa";
+import { injectParam, inject } from "../DependencyInjection/Decorator";
 
 @routePrefix("/hello")
 export class HelloController {
@@ -46,12 +47,12 @@ export class HelloController {
     @OPTIONS("test")
     @GET("test")
     @route("HEAD", "test")
-    async test(ctx:Context):Promise<void> {
+    async test(ctx: Context): Promise<void> {
         let methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"];
         ctx.response.set("X-Url", "/hello/world");
         ctx.response.set("X-Support-Method", methods.join(";"));
         if (ctx.request.method == "GET") {
-            ctx.body = {url: "/hello/world", method: methods}
+            ctx.body = { url: "/hello/world", method: methods }
         } else {
             ctx.body = null;
         }

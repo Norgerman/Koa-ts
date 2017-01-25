@@ -1,6 +1,7 @@
 "use strict";
 import * as Router from "koa-router";
-import {controllers} from "../Controllers";
+import { controllers } from "../Controllers";
+import { symbolRouters, symbolRoutePrefix } from "./Decorator";
 
 interface RouteInfo {
     path: string,
@@ -11,33 +12,31 @@ interface RouteInfo {
 export class RouterBuilder {
 
     private _router: Router;
-    private _controllerInstances: any[];
     private _built: boolean;
 
     constructor() {
         this._router = new Router();
-        this._controllerInstances = [];
         this._built = false;
     }
 
     private buildRouter() {
         if (!this._built) {
             for (let e of controllers) {
-                let obj: { routers: RouteInfo[] } = <any>e.prototype;
-                let routePrefix = Reflect.get(e, "routePrefix")
+                let routers: RouteInfo[] = e.prototype[symbolRouters];
+                let routePrefix = Reflect.get(e, symbolRoutePrefix)
                 let prefix: string = routePrefix ? routePrefix : "/";
 
                 if (prefix[prefix.length - 1] !== "/") {
                     prefix += "/";
                 }
 
-                for (let router of obj.routers) {
+                for (let router of routers) {
                     let path: string = router.path;
 
                     if (!path.startsWith("/")) {
                         path = prefix + path;
                     }
-                    var route:Router.IMiddleware = this.wrapAction(e, router.name);
+                    var route: Router.IMiddleware = this.wrapAction(e, router.name);
                     switch (router.method) {
                         case "GET": this._router.get(path, route); break;
                         case "POST": this._router.post(path, route); break;
@@ -54,8 +53,6 @@ export class RouterBuilder {
                         }
                     }
                 }
-
-                this._controllerInstances.push(obj);
             }
             this._built = true;
         }
@@ -70,7 +67,7 @@ export class RouterBuilder {
         return this._router.allowedMethods();
     }
 
-    private wrapAction(controllerType:Function, name:string):Router.IMiddleware {
+    private wrapAction(controllerType: Function, name: string): Router.IMiddleware {
         return (ctx, next) => {
             var obj = Reflect.construct(controllerType, []);
             return obj[name].call(obj, ctx, next);

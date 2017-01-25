@@ -1,17 +1,20 @@
 "use strict";
 
+export const symbolRoutePrefix:symbol = Symbol("routePrefix");
+export const symbolRouters:symbol = Symbol("routers");
+
 export function routePrefix(prefix: string): ClassDecorator {
     return target => {
-        target.routePrefix = prefix;
+        target[symbolRoutePrefix] = prefix;
     }
 }
 
 export function route(method: string, path: string): MethodDecorator {
     return (target, name, descriptor) => {
-        if (!target.routers) {
-            target.routers = [];
+        if (!target[symbolRouters]) {
+            target[symbolRouters] = [];
         }
-        target.routers.push({method, path, name});
+        target[symbolRouters].push({method, path, name});
     }
 }
 
