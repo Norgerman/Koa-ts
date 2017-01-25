@@ -1,8 +1,8 @@
 "use strict";
-import {GET, POST, PUT, DELETE, OPTIONS, ALL, Route, RoutePrefix} from "../Routes/Decorator";
+import {GET, POST, PUT, DELETE, OPTIONS, ALL, route, routePrefix} from "../Routes/Decorator";
 import {Context} from "koa";
 
-@RoutePrefix("/hello")
+@routePrefix("/hello")
 export class HelloController {
     constructor() {
         console.log("create new instance hello");
@@ -33,7 +33,7 @@ export class HelloController {
         ctx.body = "hello world options";
     }
 
-    @Route("PATCH", "world")
+    @route("PATCH", "world")
     async patchWorld(ctx: Context): Promise<void> {
         ctx.body = "hello world patch";
     }
@@ -45,7 +45,7 @@ export class HelloController {
 
     @OPTIONS("test")
     @GET("test")
-    @Route("HEAD", "test")
+    @route("HEAD", "test")
     async test(ctx:Context):Promise<void> {
         let methods = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"];
         ctx.response.set("X-Url", "/hello/world");

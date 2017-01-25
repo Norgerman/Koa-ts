@@ -1,8 +1,8 @@
 "use strict";
-import {GET, POST, PUT, DELETE, OPTIONS, ALL, Route, RoutePrefix} from "../Routes/Decorator";
+import {GET, POST, PUT, DELETE, OPTIONS, ALL, route, routePrefix} from "../Routes/Decorator";
 import {Context} from "koa";
 
-@RoutePrefix("/home")
+@routePrefix("/home")
 export class HomeController {
 
     constructor() {

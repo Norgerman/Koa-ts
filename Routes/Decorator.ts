@@ -1,12 +1,12 @@
 "use strict";
 
-export function RoutePrefix(prefix: string): ClassDecorator {
+export function routePrefix(prefix: string): ClassDecorator {
     return target => {
         target.routePrefix = prefix;
     }
 }
 
-export function Route(method: string, path: string): MethodDecorator {
+export function route(method: string, path: string): MethodDecorator {
     return (target, name, descriptor) => {
         if (!target.routers) {
             target.routers = [];
@@ -16,25 +16,25 @@ export function Route(method: string, path: string): MethodDecorator {
 }
 
 export function ALL(path: string) {
-    return Route("ALL", path);
+    return route("ALL", path);
 }
 
 export function GET(path: string) {
-    return Route("GET", path);
+    return route("GET", path);
 }
 
 export function POST(path: string) {
-    return Route("POST", path);
+    return route("POST", path);
 }
 
 export function DELETE(path: string) {
-    return Route("DELETE", path);
+    return route("DELETE", path);
 }
 
 export function PUT(path: string) {
-    return Route("PUT", path);
+    return route("PUT", path);
 }
 
 export function OPTIONS(path: string) {
-    return Route("OPTIONS", path);
+    return route("OPTIONS", path);
 }
