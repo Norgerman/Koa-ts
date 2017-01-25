@@ -6,7 +6,7 @@ export interface InjectParamInfo {
     index: number;
 }
 
-export interface injectPropertyInfo {
+export interface InjectPropertyInfo {
     injectionName: string;
     propertyName: PropertyKey;
 }
@@ -31,7 +31,7 @@ export function injectParam(name: string): ParameterDecorator {
 
 export function injectProperty(name: string): PropertyDecorator {
     return (target, propertyKey) => {
-        let injectProperties: injectPropertyInfo[] = target[symbolInjectProperties];
+        let injectProperties: InjectPropertyInfo[] = target[symbolInjectProperties];
         
         if (!symbolInjectProperties) {
             injectProperties = [];
