@@ -2,11 +2,27 @@
 import { GET, POST, PUT, DELETE, OPTIONS, ALL, route, routePrefix } from "../Routes/Decorator";
 import { Context } from "koa";
 import { injectParam, injectProperty } from "../DependencyInjection/Decorator";
+import { A, B } from "../InjectionTest"
 
 @routePrefix("/hello")
 export class HelloController {
-    constructor() {
-        console.log("create new instance hello");
+    @injectProperty("a1")
+    v1: A;
+    @injectProperty("a2")
+    v2: A;
+    @injectProperty("a3")
+    v3: A;
+    @injectProperty("a3")
+    v4: A;
+    @injectProperty("b")
+    v5: B;
+
+    constructor(@injectParam("a1") p1: A, @injectParam("a2") p2: A, @injectParam("a3") p3: A, @injectParam("b") p4: B) {
+        console.log(p1)
+        console.log(p2)
+        console.log(p3)
+        console.log(p4)
+        console.log("create controller hello");
     }
 
     @GET("world")
@@ -56,5 +72,10 @@ export class HelloController {
         } else {
             ctx.body = null;
         }
+        console.log(this.v1);
+        console.log(this.v2);
+        console.log(this.v3);
+        console.log(this.v4);
+        console.log(this.v5);
     }
 }

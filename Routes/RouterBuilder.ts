@@ -2,6 +2,7 @@
 import * as Router from "koa-router";
 import { controllers } from "../Controllers";
 import { symbolRouters, symbolRoutePrefix } from "./Decorator";
+import { activator } from "../DependencyInjection/Activator";
 
 interface RouteInfo {
     path: string,
@@ -69,7 +70,7 @@ export class RouterBuilder {
 
     private wrapAction(controllerType: Function, name: string): Router.IMiddleware {
         return (ctx, next) => {
-            let obj = Reflect.construct(controllerType, []);
+            let obj = activator.createInstance(controllerType);
             return obj[name].call(obj, ctx, next);
         }
     }

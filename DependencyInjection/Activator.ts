@@ -11,6 +11,10 @@ export interface ServiceInfo {
 class Activator {
     private services: Map<string, ServiceInfo>;
 
+    constructor() {
+        this.services = new Map<string, ServiceInfo>();
+    }
+
     add(service: ServiceInfo) {
         if (service.lifeTime == "singleton" && !service.value) {
             service.value = this.createInstance(service.constructor);
@@ -47,8 +51,8 @@ class Activator {
     }
 
     createInstance(constructor: Function): any {
-        let injectParams: InjectParamInfo[] = constructor[symbolInjectParams];
-        let InjectProperties: InjectPropertyInfo[] = constructor.prototype[symbolInjectProperties];
+        let injectParams: InjectParamInfo[] = constructor[symbolInjectParams] || [];
+        let InjectProperties: InjectPropertyInfo[] = constructor.prototype[symbolInjectProperties] || [];
         let params: any[] = [];
         let result: any;
 

@@ -33,10 +33,9 @@ export function injectProperty(name: string): PropertyDecorator {
     return (target, propertyKey) => {
         let injectProperties: InjectPropertyInfo[] = target[symbolInjectProperties];
         
-        if (!symbolInjectProperties) {
+        if (!injectProperties) {
             injectProperties = [];
         }
-
         injectProperties.push({ injectionName: name, propertyName: propertyKey });
         target[symbolInjectProperties] = injectProperties;
     }
