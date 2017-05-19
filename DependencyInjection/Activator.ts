@@ -3,7 +3,7 @@ import { symbolInjectParams, symbolInjectProperties, InjectParamInfo, InjectProp
 
 export interface ServiceInfo {
     name: string;
-    constructor: Function;
+    constructor: FunctionConstructor;
     value?: any;
     lifeTime: "transient" | "scoped" | "singleton";
 }
@@ -23,15 +23,15 @@ class Activator {
         return this;
     }
 
-    addSingleton<T>(name: string, constructor: Function, value?: T) {
+    addSingleton<T>(name: string, constructor: FunctionConstructor, value?: T) {
         return this.add({ name: name, constructor: constructor, value: value, lifeTime: "singleton" });
     }
 
-    addScoped<T>(name: string, constructor: Function) {
+    addScoped<T>(name: string, constructor: FunctionConstructor) {
         return this.add({ name: name, constructor: constructor, lifeTime: "scoped" });
     }
 
-    addTransient<T>(name: string, constructor: Function) {
+    addTransient<T>(name: string, constructor: FunctionConstructor) {
         return this.add({ name: name, constructor: constructor, lifeTime: "transient" });
     }
 
@@ -50,7 +50,7 @@ class Activator {
         return result;
     }
 
-    createInstance(constructor: Function): any {
+    createInstance(constructor: FunctionConstructor): any {
         let injectParams: InjectParamInfo[] = constructor[symbolInjectParams] || [];
         let InjectProperties: InjectPropertyInfo[] = constructor.prototype[symbolInjectProperties] || [];
         let params: any[] = [];
