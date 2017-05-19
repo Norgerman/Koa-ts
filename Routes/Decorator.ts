@@ -1,7 +1,7 @@
 "use strict";
 
-export const symbolRoutePrefix:symbol = Symbol("routePrefix");
-export const symbolRouters:symbol = Symbol("routers");
+export const symbolRoutePrefix: symbol = Symbol("routePrefix");
+export const symbolRouters: symbol = Symbol("routers");
 
 export function routePrefix(prefix: string): ClassDecorator {
     return target => {
@@ -10,11 +10,11 @@ export function routePrefix(prefix: string): ClassDecorator {
 }
 
 export function route(method: string, path: string): MethodDecorator {
-    return (target, name, descriptor) => {
+    return (target: any, name: string, descriptor: TypedPropertyDescriptor<Function>) => {
         if (!target[symbolRouters]) {
             target[symbolRouters] = [];
         }
-        target[symbolRouters].push({method, path, name});
+        target[symbolRouters].push({ method, path, name });
     }
 }
 
