@@ -1,42 +1,26 @@
-export const symbolInjectParams = Symbol("injectParams");
-export const symbolInjectProperties = Symbol("injectProperties");
+import { injectionManager } from "./InjectionManager";
 
-export interface InjectParamInfo {
-    name: string;
-    index: number;
-}
-
-export interface InjectPropertyInfo {
-    injectionName: string;
-    propertyName: PropertyKey;
-}
-
-export function injectParam(name: string): ParameterDecorator {
+export function injectParam(injectionName: string): ParameterDecorator {
     return (target, propertyKey, parameterIndex) => {
         if (propertyKey !== null && propertyKey !== undefined) {
             //the parameter is not constructor parameter
             return;
         }
 
-        let injectParams: InjectParamInfo[] = target[symbolInjectParams];
-        
-        if (!injectParams) {
-            injectParams = []
-        }
-
-        injectParams.push({ name: name, index: parameterIndex });
-        target[symbolInjectParams] = injectParams;
+        injectionManager.regeisterParam({
+            name: (target as Function).name,
+            injectionName: injectionName,
+            parameterIndex: parameterIndex
+        })
     }
 }
 
-export function injectProperty(name: string): PropertyDecorator {
-    return (target, propertyKey) => {
-        let injectProperties: InjectPropertyInfo[] = target[symbolInjectProperties];
-        
-        if (!injectProperties) {
-            injectProperties = [];
-        }
-        injectProperties.push({ injectionName: name, propertyName: propertyKey });
-        target[symbolInjectProperties] = injectProperties;
+export function injectProperty(injectionName: string): PropertyDecorator {
+    return (target, propertyName: string) => {
+        injectionManager.regeisterProperty({
+            name: target.constructor.name,
+            injectionName,
+            propertyName
+        })
     }
 }

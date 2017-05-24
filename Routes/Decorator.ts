@@ -1,20 +1,21 @@
 "use strict";
 
-export const symbolRoutePrefix: symbol = Symbol("routePrefix");
-export const symbolRouters: symbol = Symbol("routers");
+import { routeManager } from "./RouteManager";
 
 export function routePrefix(prefix: string): ClassDecorator {
     return target => {
-        target[symbolRoutePrefix] = prefix;
+        routeManager.regeisterRoutePrefix({ constructor: target, prefix });
     }
 }
 
 export function route(method: string, path: string): MethodDecorator {
     return (target: any, name: string, descriptor: TypedPropertyDescriptor<Function>) => {
-        if (!target[symbolRouters]) {
-            target[symbolRouters] = [];
-        }
-        target[symbolRouters].push({ method, path, name });
+        routeManager.regeisterRoute({
+            constructor: target.constructor,
+            function: descriptor.value,
+            method,
+            path
+        });
     }
 }
 

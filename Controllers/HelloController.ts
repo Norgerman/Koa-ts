@@ -17,7 +17,7 @@ export class HelloController {
     @injectProperty("b")
     v5: B;
 
-    constructor(@injectParam("a1") p1: A, @injectParam("a2") p2: A, @injectParam("a3") p3: A, @injectParam("b") p4: B) {
+    constructor( @injectParam("a1") p1: A, @injectParam("a2") p2: A, @injectParam("a3") p3: A, @injectParam("b") p4: B) {
         console.log(p1)
         console.log(p2)
         console.log(p3)
@@ -27,6 +27,11 @@ export class HelloController {
 
     @GET("world")
     async getWorld(ctx: Context): Promise<void> {
+        console.log(this.v1)
+        console.log(this.v2)
+        console.log(this.v3)
+        console.log(this.v4)
+        console.log(this.v5);
         ctx.body = "hello world get";
     }
 

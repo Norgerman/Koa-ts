@@ -10,7 +10,11 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "declaration": false,
-        "inlineSourceMap": false
+        "inlineSourceMap": false,
+        "typeRoots": [
+            "@types",
+            "typings"
+        ]
     },
     "exclude": [
         "node_modules",
