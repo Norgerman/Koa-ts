@@ -41,7 +41,5 @@ jspm_packages
 .idea
 .vscode
 
-# ts
-typings
 *.js
 *.map
