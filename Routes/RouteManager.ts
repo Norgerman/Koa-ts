@@ -1,10 +1,10 @@
 interface RouteInfo {
-    constructor: FunctionConstructor,
+    constructor: Function,
     function: Function,
 }
 
 interface RoutePrefixInfo {
-    constructor: FunctionConstructor,
+    constructor: Function,
     prefix: string
 }
 
@@ -28,7 +28,7 @@ class RouteManager {
         return this;
     }
 
-    public getRoutePrefix(routeClass: FunctionConstructor): string {
+    public getRoutePrefix(routeClass: Function): string {
         var prefix = this._routePrefixMap.get(routeClass.name);
         if (!prefix) {
             prefix = "/";

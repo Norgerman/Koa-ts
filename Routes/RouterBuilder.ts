@@ -52,7 +52,7 @@ export class RouterBuilder {
         return this._router.allowedMethods();
     }
 
-    private wrapAction(routeConstructor: FunctionConstructor, routeFunction: Function): Router.IMiddleware {
+    private wrapAction(routeConstructor: Function, routeFunction: Function): Router.IMiddleware {
         return (ctx, next) => {
             let obj = activator.createInstance(routeConstructor);
             return routeFunction.call(obj, ctx);

@@ -8,8 +8,10 @@ export function routePrefix(prefix: string): ClassDecorator {
     }
 }
 
-export function route(method: string, path: string): MethodDecorator {
-    return (target: any, name: string, descriptor: TypedPropertyDescriptor<Function>) => {
+export function route(method: string, path: string) {
+    return <T extends object,
+        K extends keyof T,
+        R extends Promise<any>>(target: T, name: K, descriptor: TypedPropertyDescriptor<(...args: any[]) => R>) => {
         routeManager.regeisterRoute({
             constructor: target.constructor,
             function: descriptor.value,
