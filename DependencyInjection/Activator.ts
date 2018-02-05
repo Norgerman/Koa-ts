@@ -27,9 +27,9 @@ export class Activator implements DependencyInjection.Activator {
         return this.add({ name: name, constructor: constructor, lifeTime: "transient" });
     }
 
-    get<T>(name: string): T {
+    get<T>(name: string): T | null | undefined {
         let service = this.services.get(name);
-        let result: T = null;
+        let result: T | null = null;
 
         if (!service) {
             return null;

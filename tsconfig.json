@@ -11,6 +11,8 @@
         "emitDecoratorMetadata": true,
         "declaration": false,
         "inlineSourceMap": false,
+        "strict": true,
+        "pretty": true,
         "typeRoots": [
             "@types",
             "typings"

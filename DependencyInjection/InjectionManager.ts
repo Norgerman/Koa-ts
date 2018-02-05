@@ -1,7 +1,7 @@
 class InjectionInfo {
     private _injectedParams: DependencyInjection.InjectedParamInfo[];
     private _injectedProperties: DependencyInjection.InjectedPropertyInfo[];
-    private _className:string;
+    private _className: string;
 
     constructor(className: string) {
         this._injectedParams = [];
@@ -20,7 +20,7 @@ class InjectionInfo {
 }
 
 class InjectionManager {
-    private _injectionMap: Map<string, InjectionInfo> = new Map<string, InjectionInfo>();
+    private _injectionMap: Map<string | symbol, InjectionInfo> = new Map<string, InjectionInfo>();
 
     public getInjectionInfo(name: string) {
         return this._injectionMap.get(name);

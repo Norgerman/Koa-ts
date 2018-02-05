@@ -16,7 +16,7 @@ export function injectParam(injectionName: string): ParameterDecorator {
 }
 
 export function injectProperty(injectionName: string): PropertyDecorator {
-    return (target, propertyName: string) => {
+    return (target, propertyName: string | symbol) => {
         injectionManager.regeisterProperty({
             name: target.constructor.name,
             injectionName,

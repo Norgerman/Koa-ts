@@ -1,6 +1,6 @@
 interface RouteInfo {
     constructor: Function,
-    function: Function,
+    function?: Function,
 }
 
 interface RoutePrefixInfo {

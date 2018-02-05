@@ -10,12 +10,12 @@ export class A {
 
 export class B {
     @injectProperty("a1")
-    v1: A;
+    v1!: A;
     v2: A;
     @injectProperty("a3")
-    v3: A;
+    v3!: A;
     @injectProperty("a1")
-    v4: A;
+    v4!: A;
     constructor(@injectParam("a2") p) {
         this.v2 = p;
     }

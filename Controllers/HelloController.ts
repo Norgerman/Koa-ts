@@ -7,15 +7,15 @@ import { A, B } from "../InjectionTest"
 @routePrefix("/hello")
 export class HelloController {
     @injectProperty("a1")
-    v1: A;
+    v1!: A;
     @injectProperty("a2")
-    v2: A;
+    v2!: A;
     @injectProperty("a3")
-    v3: A;
+    v3!: A;
     @injectProperty("a3")
-    v4: A;
+    v4!: A;
     @injectProperty("b")
-    v5: B;
+    v5!: B;
 
     constructor( @injectParam("a1") p1: A, @injectParam("a2") p2: A, @injectParam("a3") p3: A, @injectParam("b") p4: B) {
         console.log(p1)

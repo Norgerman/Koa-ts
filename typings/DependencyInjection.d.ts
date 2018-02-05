@@ -3,7 +3,7 @@ declare namespace DependencyInjection {
         createScopedService(): void;
         clearScopedService(): void;
         add(service: ServiceInfo);
-        get<T>(name: string): T;
+        get<T>(name: string): T | undefined | null;
         createInstance(constructor: Function): any;
     }
 
@@ -22,6 +22,6 @@ declare namespace DependencyInjection {
 
     interface InjectedPropertyInfo {
         injectionName: string,
-        propertyName: string
+        propertyName: string | symbol
     }
 }
